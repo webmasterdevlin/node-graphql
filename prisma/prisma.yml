@@ -1,0 +1,15 @@
+# The HTTP endpoint for your Prisma API
+#endpoint: ""
+endpoint: https://eu1.prisma.sh/devlin-duldulao-00fea5/node-graphql-demo/dev
+
+# Points to the file that contains your datamodel
+datamodel: datamodel.prisma
+
+# Specifies language & location for the generated Prisma client
+generate:
+  - generator: javascript-client
+    output: ../src/generated/prisma-client
+
+hooks:
+  post-deploy:
+    # No need for auto prisma generate here. Latest version of prisma has auto prisma generate already
