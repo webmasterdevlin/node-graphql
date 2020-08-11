@@ -13,13 +13,13 @@ const resolvers = {
   Mutation,
   User,
   Link,
-  Vote
+  Vote,
 };
 
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
   resolvers,
-  context: request => ({ ...request, prisma })
+  context: (request) => ({ ...request, prisma }),
 });
 
 server.start(() => console.log(`Server is running on http://localhost:4000`));

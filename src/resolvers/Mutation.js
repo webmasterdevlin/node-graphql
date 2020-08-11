@@ -1,4 +1,4 @@
-const bcrypt = require("bcryptjs");
+const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { APP_SECRET, getUserId } = require("../utils");
 
@@ -8,7 +8,7 @@ const signup = async (parent, args, context, info) => {
   const token = jwt.sign({ userId: user.id }, APP_SECRET);
   return {
     token,
-    user
+    user,
   };
 };
 
@@ -23,7 +23,7 @@ const login = async (parent, { email, password }, context, info) => {
 
   return {
     user,
-    token
+    token,
   };
 };
 
@@ -33,7 +33,7 @@ const createPost = (parent, { url, description }, context, info) => {
   return context.prisma.createLink({
     url,
     description,
-    postedBy: { connect: { id: userId } }
+    postedBy: { connect: { id: userId } },
   });
 };
 
@@ -41,13 +41,13 @@ const createVote = async (parent, { linkId }, context, info) => {
   const userId = getUserId(context);
   const linkExists = await context.prisma.$exists.vote({
     user: { id: userId },
-    link: { id: linkId }
+    link: { id: linkId },
   });
   if (linkExists) throw new Error(`Already voted for link: ${linkId}`);
 
   return context.prisma.createVote({
     user: { connect: { id: userId } },
-    link: { connect: { id: linkId } }
+    link: { connect: { id: linkId } },
   });
 };
 
@@ -55,5 +55,5 @@ module.exports = {
   signup,
   login,
   createPost,
-  createVote
+  createVote,
 };
